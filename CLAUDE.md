@@ -1,16 +1,23 @@
 # CLAUDE.md
 
 ## About this project
-<!-- Fill these in once the project takes shape. Keep them short. -->
-- **What it is:** _TODO: one or two sentences_
-- **Stack:** _TODO: language, framework, database, etc._
-- **Run:** `TODO`
-- **Test:** `TODO`
-- **Lint / format / typecheck:** `TODO`
+- **What it is:** Dota 2 safe-lane 2v2 matchup analyser. User picks 4 heroes (2 per team); app returns predicted lane winner, key combos, and strategic advice. Data from local hero JSON, Stratz GraphQL API (lane-position win rates + ally synergy), and Claude for synthesised analysis.
+- **Stack:** Next.js 15 App Router, TypeScript, `@anthropic-ai/sdk`, `dotaconstants`, Stratz GraphQL API, Vitest + React Testing Library
+- **Run:** `npm run dev`
+- **Test:** `npm test`
+- **Lint / format / typecheck:** `TODO` (add once configured)
 
 ## Conventions
-<!-- Add rules as you discover them, e.g. "use named exports", "no ORMs". -->
-- _TODO_
+- Use named exports
+- Use unit tests where necessary, in the format of `filename.test.tsx` alongside the original file
+- Stratz data is fetched server-side (API route only); never expose API keys to the client
+- Claude response must match the `LaneAnalysis` type exactly — validate with Zod before returning
+- `dotaconstants` data is copied to `src/data/` via `npm run sync-data` (postinstall); never import directly from `node_modules`
+
+## Open unknowns
+<!-- Remove each item once resolved, and update the relevant section above. -->
+- Exact Stratz GraphQL query shape for lane-position-filtered matchup rates and ally synergy — confirm against Stratz API explorer before writing `stratz.ts`
+- Streaming JSON parsing approach on the client (partial JSON vs. newline-delimited chunks) — decide when implementing `AnalysisResult.tsx`
 
 ---
 
