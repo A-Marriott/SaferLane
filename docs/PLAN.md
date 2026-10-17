@@ -133,6 +133,11 @@ Each step includes writing its unit tests alongside the implementation.
 
 ---
 
+## Keeping CLAUDE.md current
+Whenever this plan has an open unknown (marked `TODO` or listed in "Open unknowns" in CLAUDE.md) and we resolve it during a session — e.g. we confirm the Stratz query shape, settle on a streaming approach, or add a lint command — update CLAUDE.md immediately: fill in the answer in the relevant section and remove the item from the "Open unknowns" list.
+
+---
+
 ## Verification
 - `npm test` — all unit tests pass
 - `npm run dev`, pick CM + Juggernaut vs Snapfire + Mars, submit
