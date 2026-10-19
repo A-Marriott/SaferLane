@@ -9,8 +9,15 @@ Build a Next.js web app for Dota 2 players to analyse 2v2 safe lane matchups. Us
 - Next.js 15, App Router, TypeScript
 - `@anthropic-ai/sdk` for Claude API
 - `dotaconstants` (devDep, data copied to `src/data/` via postinstall script)
-- Stratz GraphQL API (free API key, position-specific stats + ally synergy data)
+- Stratz GraphQL API — accessed at runtime via MCP (see below)
 - Vitest + React Testing Library for unit tests
+
+## Stratz MCP (app runtime)
+Rather than pre-fetching a fixed set of Stratz queries in `stratz.ts`, the `/api/analyze` route exposes Stratz as MCP tools and lets Claude decide which queries to run during analysis. Claude calls the tools mid-response, gets the data back, and synthesises it into `LaneAnalysis` JSON.
+
+Tools to expose:
+- `get_lane_matchup_winrate(heroId, vsHeroId, position)` — win rate for a hero pair filtered by lane position
+- `get_ally_synergy(heroId, allyHeroId, position)` — synergy score for a team pair in position
 
 ---
 
@@ -57,12 +64,11 @@ src/
 ## Data Flow
 1. User picks 4 heroes in `HeroPicker`
 2. `POST /api/analyze` fires with `{ team1: [id, id], team2: [id, id] }`
-3. In parallel:
-   - Stratz GraphQL: lane-position-filtered matchup win rates for each cross-pair + ally synergy scores for each team
-   - Local JSON lookup for each hero's stats + abilities (sync, module-scoped)
-4. `analysis-context.ts` assembles structured context + builds Claude prompt
-5. Claude streams back structured JSON (`LaneAnalysis` type)
-6. Client renders result cards progressively
+3. Local JSON lookup for each hero's stats + abilities (sync, module-scoped)
+4. `analysis-context.ts` assembles hero context + builds Claude prompt; Stratz tools are passed to the SDK call
+5. Claude calls Stratz MCP tools mid-response to fetch lane-position win rates and ally synergy as needed
+6. Claude streams back structured JSON (`LaneAnalysis` type)
+7. Client renders result cards progressively
 
 ---
 
@@ -125,6 +131,7 @@ Each step includes writing its unit tests alongside the implementation.
 2. Types (`src/types/dota.ts`)
 3. Static data layer (`hero-data.ts`) + tests
 4. Stratz GraphQL fetch (`stratz.ts`) + tests (mock `fetch`)
+   ⚡ **Try parallel agents here:** Stratz query research (web/API explorer) can run alongside step 3 implementation. Open a worktree (`git worktree add ../dota-stratz-research`) and spawn a second Claude Code session to confirm the exact GraphQL query shape while the main session finishes the data layer.
 5. Prompt assembly (`analysis-context.ts`) + tests
 6. Claude streaming wrapper (`claude.ts`)
 7. API route (`api/analyze/route.ts`)
