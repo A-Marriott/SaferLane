@@ -2,10 +2,6 @@
 
 ## About this project
 - **What it is:** Dota 2 safe-lane 2v2 matchup analyser. User picks 4 heroes (2 per team); app returns predicted lane winner, key combos, and strategic advice. Data from local hero JSON, Stratz GraphQL API (lane-position win rates + ally synergy), and Claude for synthesised analysis.
-- **Stack:** Next.js 15 App Router, TypeScript, `@anthropic-ai/sdk`, `dotaconstants`, Stratz GraphQL API, Vitest + React Testing Library
-- **Run:** `npm run dev`
-- **Test:** `npm test`
-- **Lint / format / typecheck:** `TODO` (add once configured)
 
 ## Conventions
 - Use named exports
