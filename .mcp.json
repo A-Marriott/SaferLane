@@ -5,7 +5,10 @@
       "command": "npx",
       "args": [
         "-y",
-        "@playwright/mcp@latest"
+        "@playwright/mcp@latest",
+        "--browser",
+        "chrome",
+        "--headless"
       ],
       "env": {}
     }
