@@ -47,16 +47,7 @@ src/
 ├── types/dota.ts                    # HeroContext, LaneAnalysis, etc.
 scripts/
 └── sync-constants.mjs               # Copies JSON from node_modules/dotaconstants/build/
-src/
-└── __tests__/
-    ├── lib/
-    │   ├── hero-data.test.ts         # Lookup maps return correct shape
-    │   ├── stratz.test.ts            # Win rate calculation, synergy parsing (mocked fetch)
-    │   └── analysis-context.test.ts  # Prompt assembly produces expected structure
-    └── components/
-        ├── HeroSearch.test.tsx       # Renders, filters, selects a hero
-        └── LaneResultCard.test.tsx   # Renders each section from mock LaneAnalysis
-.env.local                           # ANTHROPIC_API_KEY, STRATZ_API_KEY
+.env                                 # ANTHROPIC_API_KEY, STRATZ_API_KEY
 ```
 
 ---
@@ -120,7 +111,7 @@ This file is written once (with your help researching), then included verbatim i
 3. `npm install --save-dev dotaconstants vitest @vitejs/plugin-react @testing-library/react @testing-library/jest-dom jsdom`
 4. Add `sync-constants.mjs` + `postinstall` script, run `npm run sync-data`
 5. Register free API key at stratz.com/api
-6. Add `.env.local` with `ANTHROPIC_API_KEY` and `STRATZ_API_KEY`
+6. Add `.env` with `ANTHROPIC_API_KEY` and `STRATZ_API_KEY`
 
 ---
 
