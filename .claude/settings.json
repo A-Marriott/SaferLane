@@ -1,6 +1,6 @@
 {
-	"enabledMcpjsonServers": ["playwright"],
-	"permissions": {
-		"allow": ["Bash(npm run dev)"]
-	}
+  "enabledMcpjsonServers": ["playwright"],
+  "permissions": {
+    "allow": ["Bash(npm run dev)"]
+  }
 }
