@@ -1,11 +1,16 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { LaneAnalysisSchema } from "./dota";
 
 const validAnalysis = {
   predicted_winner: "Team A",
   confidence: "moderate",
   reasoning: "Team A has superior early-game kill threat.",
-  team_a_combos: [{ name: "Frostbite + Stalk", description: "Rooting the carry for a Phantom Assassin Stalk proc." }],
+  team_a_combos: [
+    {
+      name: "Frostbite + Stalk",
+      description: "Rooting the carry for a Phantom Assassin Stalk proc.",
+    },
+  ],
   team_b_combos: [],
   strategic_advice: {
     team_a: "Punish the offlaner hard pre-6.",
@@ -21,12 +26,18 @@ describe("LaneAnalysisSchema", () => {
   });
 
   it("rejects an invalid predicted_winner", () => {
-    const result = LaneAnalysisSchema.safeParse({ ...validAnalysis, predicted_winner: "Neither" });
+    const result = LaneAnalysisSchema.safeParse({
+      ...validAnalysis,
+      predicted_winner: "Neither",
+    });
     expect(result.success).toBe(false);
   });
 
   it("rejects an invalid confidence value", () => {
-    const result = LaneAnalysisSchema.safeParse({ ...validAnalysis, confidence: "high" });
+    const result = LaneAnalysisSchema.safeParse({
+      ...validAnalysis,
+      confidence: "high",
+    });
     expect(result.success).toBe(false);
   });
 
