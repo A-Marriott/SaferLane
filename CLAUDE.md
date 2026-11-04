@@ -4,9 +4,9 @@
 - **What it is:** Dota 2 safe-lane 2v2 matchup analyser. User picks 4 heroes (2 per team); app returns predicted lane winner, key combos, and strategic advice. Data from local hero JSON, Stratz GraphQL API (lane-position win rates + ally synergy), and Claude for synthesised analysis.
 
 ## Conventions
-- Use named exports
+- Use named exports (exception: Next.js App Router requires default exports for `page.tsx` and `layout.tsx`)
 - Use `export const foo = () =>` for functions, not `export function foo()`
-- Use unit tests where necessary, in the format of `filename.test.tsx` alongside the original file
+- Use unit tests where necessary, in the format of `filename.test.ts` (or `.test.tsx` for files with JSX) alongside the original file
 - Stratz data is fetched server-side (API route only); never expose API keys to the client
 - Claude response must match the `LaneAnalysis` type exactly — validate with Zod before returning
 - `dotaconstants` data is copied to `src/data/` via `npm run sync-data` (postinstall); never import directly from `node_modules`

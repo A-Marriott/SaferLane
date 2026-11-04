@@ -6,7 +6,7 @@ Build a Next.js web app for Dota 2 players to analyse 2v2 safe lane matchups. Us
 ---
 
 ## Stack
-- Next.js 15, App Router, TypeScript
+- Next.js 16, App Router, TypeScript
 - `@anthropic-ai/sdk` for Claude API
 - `dotaconstants` (devDep, data copied to `src/data/` via postinstall script)
 - Stratz GraphQL API — accessed at runtime via MCP (see below)
