@@ -5,10 +5,12 @@
 
 ## Conventions
 - Use named exports
+- Use `export const foo = () =>` for functions, not `export function foo()`
 - Use unit tests where necessary, in the format of `filename.test.tsx` alongside the original file
 - Stratz data is fetched server-side (API route only); never expose API keys to the client
 - Claude response must match the `LaneAnalysis` type exactly — validate with Zod before returning
 - `dotaconstants` data is copied to `src/data/` via `npm run sync-data` (postinstall); never import directly from `node_modules`
+- Use `@/` path aliases for all imports (e.g. `@/types/dota`, `@/data/heroes.json`); never use relative `../` paths
 
 ## Open unknowns
 <!-- Remove each item once resolved, and update the relevant section above. -->
