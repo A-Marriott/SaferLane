@@ -12,11 +12,8 @@
 - `dotaconstants` data is copied to `src/data/` via `npm run sync-data` (postinstall); never import directly from `node_modules`
 - Use `@/` path aliases for all imports (e.g. `@/types/dota`, `@/data/heroes.json`); never use relative `../` paths
 
-## Open unknowns
-<!-- Remove each item once resolved, and update the relevant section above. -->
-- Streaming JSON parsing approach on the client (partial JSON vs. newline-delimited chunks) — decide when implementing `AnalysisResult.tsx`
-
 ## Resolved unknowns
+- **Streaming (resolved 2026-11-13):** Simple `fetch` + `res.json()` in `MatchupForm.tsx` — no streaming needed until response latency becomes a UX problem.
 - **Stratz query shape (confirmed 2026-11-04):** `matchUp` has no position filter. Use `heroStats.laneOutcome(heroId, isWith: false|true, bracketBasicIds: [DIVINE_IMMORTAL], positionIds: [POSITION_N])`. Response fields: `heroId2`, `matchCount`, `winCount`, `lossCount`. Win rate = `winCount / matchCount`. Position enum: `POSITION_1`–`POSITION_5`.
 
 ---
