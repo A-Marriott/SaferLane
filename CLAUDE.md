@@ -14,8 +14,10 @@
 
 ## Open unknowns
 <!-- Remove each item once resolved, and update the relevant section above. -->
-- Exact Stratz GraphQL query shape for lane-position-filtered matchup rates and ally synergy — confirm against Stratz API explorer before writing `stratz.ts`
 - Streaming JSON parsing approach on the client (partial JSON vs. newline-delimited chunks) — decide when implementing `AnalysisResult.tsx`
+
+## Resolved unknowns
+- **Stratz query shape (confirmed 2026-11-04):** `matchUp` has no position filter. Use `heroStats.laneOutcome(heroId, isWith: false|true, bracketBasicIds: [DIVINE_IMMORTAL], positionIds: [POSITION_N])`. Response fields: `heroId2`, `matchCount`, `winCount`, `lossCount`. Win rate = `winCount / matchCount`. Position enum: `POSITION_1`–`POSITION_5`.
 
 ---
 
