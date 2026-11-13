@@ -87,7 +87,9 @@ export type LaneAnalysis = z.infer<typeof LaneAnalysisSchema>;
 // API request/response shapes
 // ---------------------------------------------------------------------------
 
-export interface AnalyzeRequest {
-  team1: [number, number];
-  team2: [number, number];
-}
+export const AnalyzeRequest = z.object({
+  team1: z.tuple([z.number().int(), z.number().int()]),
+  team2: z.tuple([z.number().int(), z.number().int()]),
+});
+
+export type AnalyzeRequest = z.infer<typeof AnalyzeRequest>;

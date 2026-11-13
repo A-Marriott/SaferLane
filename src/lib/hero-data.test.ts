@@ -11,7 +11,9 @@ describe("getHeroById", () => {
   });
 
   it("returns correct stats for Anti-Mage", () => {
-    const ctx = getHeroById(1)!;
+    const ctx = getHeroById(1);
+    expect(ctx).not.toBeNull();
+    if (!ctx) return;
     expect(ctx.stats.id).toBe(1);
     expect(ctx.stats.localized_name).toBe("Anti-Mage");
     expect(ctx.stats.primary_attr).toBe("agi");
@@ -21,19 +23,25 @@ describe("getHeroById", () => {
   });
 
   it("returns non-empty abilities for Anti-Mage", () => {
-    const ctx = getHeroById(1)!;
+    const ctx = getHeroById(1);
+    expect(ctx).not.toBeNull();
+    if (!ctx) return;
     expect(ctx.abilities.length).toBeGreaterThan(0);
   });
 
   it("all abilities have a non-empty dname", () => {
-    const ctx = getHeroById(1)!;
+    const ctx = getHeroById(1);
+    expect(ctx).not.toBeNull();
+    if (!ctx) return;
     for (const ability of ctx.abilities) {
       expect(ability.dname.length).toBeGreaterThan(0);
     }
   });
 
   it("all abilities have a defined behavior field", () => {
-    const ctx = getHeroById(1)!;
+    const ctx = getHeroById(1);
+    expect(ctx).not.toBeNull();
+    if (!ctx) return;
     for (const ability of ctx.abilities) {
       expect(ability.behavior).toBeDefined();
     }
@@ -41,7 +49,9 @@ describe("getHeroById", () => {
 
   // generic_hidden has no dname — it should be excluded
   it("excludes abilities without a display name (e.g. generic_hidden)", () => {
-    const ctx = getHeroById(1)!;
+    const ctx = getHeroById(1);
+    expect(ctx).not.toBeNull();
+    if (!ctx) return;
     const names = ctx.abilities.map((a) => a.dname);
     expect(names).not.toContain("");
   });

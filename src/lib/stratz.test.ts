@@ -15,8 +15,7 @@ afterEach(() => {
 
 const makeLaneOutcomeResponse = (rows: object[]) => ({
   ok: true,
-  json: () =>
-    Promise.resolve({ data: { heroStats: { laneOutcome: rows } } }),
+  json: () => Promise.resolve({ data: { heroStats: { laneOutcome: rows } } }),
 });
 
 describe("getLaneMatchupWinRate", () => {
@@ -29,7 +28,12 @@ describe("getLaneMatchupWinRate", () => {
     );
 
     const result = await getLaneMatchupWinRate(8, 20, 1);
-    expect(result).toEqual({ heroId: 8, vsHeroId: 20, position: 1, winRate: 0.55 });
+    expect(result).toEqual({
+      heroId: 8,
+      vsHeroId: 20,
+      position: 1,
+      winRate: 0.55,
+    });
   });
 
   it("includes correct positionIds in query", async () => {
@@ -42,44 +46,57 @@ describe("getLaneMatchupWinRate", () => {
   });
 
   it("returns null when vsHeroId not in results", async () => {
-    mockFetch.mockResolvedValue(makeLaneOutcomeResponse([
-      { heroId2: 99, matchCount: 50, winCount: 25, lossCount: 25 },
-    ]));
+    mockFetch.mockResolvedValue(
+      makeLaneOutcomeResponse([
+        { heroId2: 99, matchCount: 50, winCount: 25, lossCount: 25 },
+      ]),
+    );
     expect(await getLaneMatchupWinRate(8, 20, 1)).toBeNull();
   });
 
   it("returns null when matchCount is zero", async () => {
-    mockFetch.mockResolvedValue(makeLaneOutcomeResponse([
-      { heroId2: 20, matchCount: 0, winCount: 0, lossCount: 0 },
-    ]));
+    mockFetch.mockResolvedValue(
+      makeLaneOutcomeResponse([
+        { heroId2: 20, matchCount: 0, winCount: 0, lossCount: 0 },
+      ]),
+    );
     expect(await getLaneMatchupWinRate(8, 20, 1)).toBeNull();
   });
 
   it("throws on invalid position", async () => {
-    await expect(getLaneMatchupWinRate(8, 20, 6)).rejects.toThrow("Invalid position");
+    await expect(getLaneMatchupWinRate(8, 20, 6)).rejects.toThrow(
+      "Invalid position",
+    );
   });
 
   it("throws when STRATZ_API_KEY is not set", async () => {
     vi.unstubAllEnvs();
-    await expect(getLaneMatchupWinRate(8, 20, 1)).rejects.toThrow("STRATZ_API_KEY");
+    await expect(getLaneMatchupWinRate(8, 20, 1)).rejects.toThrow(
+      "STRATZ_API_KEY",
+    );
   });
 
   it("throws on non-ok HTTP response", async () => {
     mockFetch.mockResolvedValue({ ok: false, status: 429 });
-    await expect(getLaneMatchupWinRate(8, 20, 1)).rejects.toThrow("Stratz API error: 429");
+    await expect(getLaneMatchupWinRate(8, 20, 1)).rejects.toThrow(
+      "Stratz API error: 429",
+    );
   });
 });
 
 describe("getAllySynergy", () => {
   it("returns synergy score for a matching ally pair", async () => {
     mockFetch.mockResolvedValue(
-      makeLaneOutcomeResponse([
-        { heroId2: 5, matchCount: 500, winCount: 300 },
-      ]),
+      makeLaneOutcomeResponse([{ heroId2: 5, matchCount: 500, winCount: 300 }]),
     );
 
     const result = await getAllySynergy(8, 5, 1);
-    expect(result).toEqual({ heroId: 8, allyHeroId: 5, position: 1, synergyScore: 0.6 });
+    expect(result).toEqual({
+      heroId: 8,
+      allyHeroId: 5,
+      position: 1,
+      synergyScore: 0.6,
+    });
   });
 
   it("includes isWith: true in query", async () => {
