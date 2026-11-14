@@ -7,6 +7,7 @@ type RawHero = {
   id: number;
   name: string;
   localized_name: string;
+  icon?: string;
   primary_attr: string;
   attack_type: string;
   roles: string[];
@@ -43,6 +44,7 @@ for (const raw of Object.values(heroes)) {
     stats: {
       id: raw.id,
       localized_name: raw.localized_name,
+      icon: `/heroes/icons/${raw.name}.png`,
       primary_attr: raw.primary_attr as HeroStats["primary_attr"],
       attack_type: raw.attack_type as HeroStats["attack_type"],
       roles: raw.roles,

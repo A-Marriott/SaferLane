@@ -7,6 +7,7 @@ import { z } from "zod";
 export interface HeroStats {
   id: number;
   localized_name: string;
+  icon: string;
   primary_attr: "str" | "agi" | "int" | "all";
   attack_type: "Melee" | "Ranged";
   roles: string[];
