@@ -54,34 +54,38 @@ export const HeroPicker = ({ heroes, selected, onChange, label }: Props) => {
 
       <div className="flex gap-2">
         {([0, 1] as const).map((s) => (
-          <button
+          <div
             key={s}
-            type="button"
-            onClick={() => setSlot(s)}
-            className={`flex-1 rounded border px-3 py-2 text-sm text-left transition-colors ${
+            className={`flex flex-1 items-center rounded border transition-colors ${
               slot === s
-                ? "border-blue-500 bg-blue-500/10 text-blue-300"
-                : "border-gray-600 bg-gray-800 text-gray-300 hover:border-gray-400"
+                ? "border-blue-500 bg-blue-500/10"
+                : "border-gray-600 bg-gray-800"
             }`}
           >
-            {heroName(selected[s]) ?? (
-              <span className="text-gray-500">
-                Pick {s === 0 ? "carry" : "support"}
-              </span>
-            )}
+            <button
+              type="button"
+              onClick={() => setSlot(s)}
+              className={`flex-1 px-3 py-2 text-sm text-left ${
+                slot === s ? "text-blue-300" : "text-gray-300"
+              }`}
+            >
+              {heroName(selected[s]) ?? (
+                <span className="text-gray-500">
+                  Pick {s === 0 ? "carry" : "support"}
+                </span>
+              )}
+            </button>
             {selected[s] !== null && (
               <button
                 type="button"
-                className="ml-2 text-gray-500 hover:text-gray-200"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  clear(s);
-                }}
+                aria-label="Clear"
+                className="px-2 py-2 text-gray-500 hover:text-gray-200"
+                onClick={() => clear(s)}
               >
                 ×
               </button>
             )}
-          </button>
+          </div>
         ))}
       </div>
 
