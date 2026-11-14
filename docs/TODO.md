@@ -1,0 +1,2 @@
+- Separate repo with advice per hero, general strategies. this new repo is private, current is private.
+- 
