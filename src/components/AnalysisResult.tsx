@@ -44,9 +44,9 @@ export const AnalysisResult = ({ result }: Props) => (
     </div>
 
     <div className="rounded border border-gray-700 bg-gray-800 p-3">
-      <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
+      <h3 className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
         Key timings
-      </p>
+      </h3>
       <p className="text-sm text-gray-300">{result.key_timings}</p>
     </div>
   </div>
@@ -60,9 +60,9 @@ const ComboList = ({
   combos: { name: string; description: string }[];
 }) => (
   <div>
-    <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
+    <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
       {label}
-    </p>
+    </h3>
     {combos.length === 0 ? (
       <p className="text-sm text-gray-500">None</p>
     ) : (
@@ -80,9 +80,9 @@ const ComboList = ({
 
 const AdviceBlock = ({ label, text }: { label: string; text: string }) => (
   <div>
-    <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
+    <h3 className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
       {label}
-    </p>
+    </h3>
     <p className="text-sm leading-relaxed text-gray-300">{text}</p>
   </div>
 );

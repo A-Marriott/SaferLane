@@ -42,7 +42,7 @@ describe("LaneAnalysisSchema", () => {
   });
 
   it("rejects a missing strategic_advice field", () => {
-    const { strategic_advice, ...rest } = validAnalysis;
+    const { strategic_advice: _strategic_advice, ...rest } = validAnalysis;
     const result = LaneAnalysisSchema.safeParse(rest);
     expect(result.success).toBe(false);
   });

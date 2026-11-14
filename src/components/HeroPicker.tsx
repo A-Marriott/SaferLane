@@ -42,7 +42,7 @@ export const HeroPicker = ({ heroes, selected, onChange, label }: Props) => {
   };
 
   const heroById = (id: number | null) =>
-    id !== null ? heroes.find((h) => h.id === id) ?? null : null;
+    id !== null ? (heroes.find((h) => h.id === id) ?? null) : null;
 
   return (
     <div className="flex flex-col gap-3">
@@ -64,11 +64,14 @@ export const HeroPicker = ({ heroes, selected, onChange, label }: Props) => {
             >
               <button
                 type="button"
+                aria-label={`${label} ${s === 0 ? "carry" : "support"}${hero ? `: ${hero.localized_name}` : ""}`}
+                aria-pressed={slot === s}
                 onClick={() => setSlot(s)}
                 className="flex flex-1 items-center gap-2 px-2 py-2 text-sm text-left"
               >
                 {hero ? (
                   <>
+                    {/* biome-ignore lint/performance/noImgElement: image-rendering:pixelated doesn't work reliably with next/image optimization */}
                     <img
                       src={hero.icon}
                       alt={hero.localized_name}
@@ -76,7 +79,9 @@ export const HeroPicker = ({ heroes, selected, onChange, label }: Props) => {
                       height={24}
                       className="rounded-sm [image-rendering:pixelated]"
                     />
-                    <span className={slot === s ? "text-blue-300" : "text-gray-300"}>
+                    <span
+                      className={slot === s ? "text-blue-300" : "text-gray-300"}
+                    >
                       {hero.localized_name}
                     </span>
                   </>
@@ -89,7 +94,7 @@ export const HeroPicker = ({ heroes, selected, onChange, label }: Props) => {
               {selected[s] !== null && (
                 <button
                   type="button"
-                  aria-label="Clear"
+                  aria-label={`Clear ${label} ${s === 0 ? "carry" : "support"}`}
                   className="px-2 py-2 text-gray-500 hover:text-gray-200"
                   onClick={() => clear(s)}
                 >
@@ -103,6 +108,7 @@ export const HeroPicker = ({ heroes, selected, onChange, label }: Props) => {
 
       <input
         type="text"
+        aria-label={`Search heroes for ${label}`}
         placeholder="Search heroes…"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
@@ -128,6 +134,7 @@ export const HeroPicker = ({ heroes, selected, onChange, label }: Props) => {
                     : "hover:ring-2 hover:ring-blue-400 cursor-pointer"
                 }`}
               >
+                {/* biome-ignore lint/performance/noImgElement: image-rendering:pixelated doesn't work reliably with next/image optimization */}
                 <img
                   src={h.icon}
                   alt={h.localized_name}

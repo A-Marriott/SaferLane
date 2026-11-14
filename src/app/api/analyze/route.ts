@@ -1,9 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
+import mockAnalysis from "@/data/mock-analysis.json";
 import { getHeroById } from "@/lib/hero-data";
 import { getAllySynergy, getLaneMatchupWinRate } from "@/lib/stratz";
 import { AnalyzeRequest, LaneAnalysisSchema } from "@/types/dota";
-import mockAnalysis from "@/data/mock-analysis.json";
 
 const client = new Anthropic();
 

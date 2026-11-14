@@ -79,14 +79,17 @@ export const MatchupForm = ({ heroes }: Props) => {
       <button
         onClick={analyse}
         disabled={!ready || state.status === "loading"}
-        type={"submit"}
+        type="button"
         className="rounded bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"
       >
         {state.status === "loading" ? "Analysing…" : "Analyse matchup"}
       </button>
 
       {state.status === "error" && (
-        <p className="rounded border border-red-700 bg-red-900/30 px-4 py-3 text-sm text-red-300">
+        <p
+          role="alert"
+          className="rounded border border-red-700 bg-red-900/30 px-4 py-3 text-sm text-red-300"
+        >
           {state.message}
         </p>
       )}
