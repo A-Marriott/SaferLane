@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getHeroById } from "@/lib/hero-data";
 import { getAllySynergy, getLaneMatchupWinRate } from "@/lib/stratz";
 import { AnalyzeRequest, LaneAnalysisSchema } from "@/types/dota";
+import mockAnalysis from "@/data/mock-analysis.json";
 
 const client = new Anthropic();
 
@@ -68,6 +69,10 @@ export const POST = async (req: Request) => {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
   const { team1, team2 } = parsed.data;
+
+  if (process.env.MOCK_CLAUDE === "true") {
+    return NextResponse.json(mockAnalysis);
+  }
 
   const [heroA1, heroA2, heroB1, heroB2] = [
     getHeroById(team1[0]),

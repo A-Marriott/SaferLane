@@ -1,0 +1,22 @@
+{
+  "predicted_winner": "Team A",
+  "confidence": "moderate",
+  "reasoning": "Team A's combination of a durable carry and a strong laning support gives them an edge in sustained trades. Their ally synergy win rate is higher than Team B's, and the statistical matchup data favours their carry in the 1v1.",
+  "team_a_combos": [
+    {
+      "name": "Kill threat at level 6",
+      "description": "Once the carry hits level 6, the support can chain CC into the carry's ultimate for a reliable kill on either enemy hero."
+    }
+  ],
+  "team_b_combos": [
+    {
+      "name": "Early aggression window",
+      "description": "Team B's support has strong levels 1–3. Winning early trades before the Team A carry comes online is their best path to lane dominance."
+    }
+  ],
+  "strategic_advice": {
+    "team_a": "Play defensively until level 6, then look for trades. Stack the nearby camp at minute 1 and 2 to accelerate the carry's farm.",
+    "team_b": "Commit to an early level 2 or level 3 fight before Team A's carry can sustain. Zone the carry off XP if the kill isn't there."
+  },
+  "key_timings": "Team B's window is minutes 2–5. After the Team A carry hits level 6, the kill threat flips significantly in Team A's favour."
+}
