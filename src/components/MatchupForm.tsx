@@ -29,6 +29,7 @@ export const MatchupForm = ({ heroes }: Props) => {
   const [active, setActive] = useState<ActiveSlot>({ team: 1, slot: 0 });
   const [query, setQuery] = useState("");
   const [state, setState] = useState<FetchState>({ status: "idle" });
+  const [view, setView] = useState<"picker" | "analysis">("picker");
 
   const ready =
     team1[0] !== null &&
@@ -111,6 +112,7 @@ export const MatchupForm = ({ heroes }: Props) => {
       }
       const data = await res.json();
       setState({ status: "success", data: data as LaneAnalysis });
+      setView("analysis");
     } catch (err) {
       setState({
         status: "error",
@@ -119,8 +121,37 @@ export const MatchupForm = ({ heroes }: Props) => {
     }
   };
 
+  if (view === "analysis" && state.status === "success") {
+    return (
+      <div className="flex flex-col gap-6">
+        <div>
+          <button
+            type="button"
+            onClick={() => setView("picker")}
+            className="text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            ← Back to picker
+          </button>
+        </div>
+        <AnalysisResult result={state.data} />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-6">
+      <div className="flex justify-end min-h-[1.5rem]">
+        {state.status === "success" && (
+          <button
+            type="button"
+            onClick={() => setView("analysis")}
+            className="text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            View analysis →
+          </button>
+        )}
+      </div>
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <HeroPicker
           heroes={heroes}
@@ -204,8 +235,6 @@ export const MatchupForm = ({ heroes }: Props) => {
           {state.message}
         </p>
       )}
-
-      {state.status === "success" && <AnalysisResult result={state.data} />}
     </div>
   );
 };
