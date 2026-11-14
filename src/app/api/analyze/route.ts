@@ -145,14 +145,22 @@ export const POST = async (req: Request) => {
 
   const message = await client.messages.create({
     model: "claude-opus-4-6",
-    max_tokens: 1024,
+    max_tokens: 2048,
     messages: [{ role: "user", content: prompt }],
   });
 
   const text =
     message.content[0].type === "text" ? message.content[0].text : "";
 
-  const json = JSON.parse(text);
+  let json: unknown;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    return NextResponse.json(
+      { error: "Claude returned malformed JSON", raw: text.slice(0, 200) },
+      { status: 502 },
+    );
+  }
   const result = LaneAnalysisSchema.safeParse(json);
 
   if (!result.success) {
