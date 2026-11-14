@@ -145,6 +145,7 @@ export const MatchupForm = ({ heroes }: Props) => {
       <div className="flex flex-col gap-2">
         <input
           type="text"
+          id="hero-search"
           aria-label="Search heroes"
           placeholder="Search heroes…"
           value={query}
