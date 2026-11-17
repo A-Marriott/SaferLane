@@ -121,19 +121,40 @@ export const MatchupForm = ({ heroes }: Props) => {
     }
   };
 
+  const heroById = (id: number | null) =>
+    id !== null ? (heroes.find((h) => h.id === id) ?? null) : null;
+
+  const teamAHeroes = [heroById(team1[0]), heroById(team1[1])].filter(
+    (h): h is HeroStats => h !== null,
+  );
+  const teamBHeroes = [heroById(team2[0]), heroById(team2[1])].filter(
+    (h): h is HeroStats => h !== null,
+  );
+
+  if (state.status === "loading") {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 py-20 text-gray-400">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-700 border-t-blue-400" />
+        <p className="text-sm">Analysing matchup…</p>
+      </div>
+    );
+  }
+
   if (view === "analysis" && state.status === "success") {
     return (
       <div className="flex flex-col gap-6">
-        <div>
-          <button
-            type="button"
-            onClick={() => setView("picker")}
-            className="text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            ← Back to picker
-          </button>
-        </div>
-        <AnalysisResult result={state.data} />
+        <button
+          type="button"
+          onClick={() => setView("picker")}
+          className="self-start rounded border border-gray-700 bg-gray-800 px-3 py-1.5 text-sm text-gray-300 transition-colors hover:border-gray-500 hover:text-white"
+        >
+          ← Back to picker
+        </button>
+        <AnalysisResult
+          result={state.data}
+          teamAHeroes={teamAHeroes}
+          teamBHeroes={teamBHeroes}
+        />
       </div>
     );
   }
@@ -152,25 +173,38 @@ export const MatchupForm = ({ heroes }: Props) => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <HeroPicker
-          heroes={heroes}
-          selected={team1}
-          label="Safelane"
-          slots={["Carry", "Support"]}
-          activeSlot={active.team === 1 ? active.slot : null}
-          onSlotClick={(slot) => setActive({ team: 1, slot })}
-          onClear={(slot) => clear(1, slot)}
-        />
-        <HeroPicker
-          heroes={heroes}
-          selected={team2}
-          label="Offlane"
-          slots={["Offlane", "Support"]}
-          activeSlot={active.team === 2 ? active.slot : null}
-          onSlotClick={(slot) => setActive({ team: 2, slot })}
-          onClear={(slot) => clear(2, slot)}
-        />
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+        <div className="flex-1">
+          <HeroPicker
+            heroes={heroes}
+            selected={team1}
+            label="Safelane"
+            slots={["Carry", "Support"]}
+            variant="radiant"
+            activeSlot={active.team === 1 ? active.slot : null}
+            onSlotClick={(slot) => setActive({ team: 1, slot })}
+            onClear={(slot) => clear(1, slot)}
+          />
+        </div>
+
+        <div className="flex items-center justify-center sm:mt-7">
+          <span className="rounded-full border border-gray-700 bg-gray-800 px-2.5 py-1 text-xs font-bold text-gray-500">
+            VS
+          </span>
+        </div>
+
+        <div className="flex-1">
+          <HeroPicker
+            heroes={heroes}
+            selected={team2}
+            label="Offlane"
+            slots={["Offlane", "Support"]}
+            variant="dire"
+            activeSlot={active.team === 2 ? active.slot : null}
+            onSlotClick={(slot) => setActive({ team: 2, slot })}
+            onClear={(slot) => clear(2, slot)}
+          />
+        </div>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -181,7 +215,7 @@ export const MatchupForm = ({ heroes }: Props) => {
           placeholder="Search heroes…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="rounded border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-gray-200 placeholder-gray-500 outline-none focus:border-blue-500"
+          className="rounded border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-gray-200 placeholder-gray-500 outline-none focus:border-gray-400"
         />
 
         <div className="flex flex-wrap gap-1 rounded border border-gray-700 bg-gray-900 p-2 max-h-64 overflow-y-auto">
@@ -200,7 +234,7 @@ export const MatchupForm = ({ heroes }: Props) => {
                   className={`rounded transition-opacity ${
                     isPicked
                       ? "opacity-25 cursor-default"
-                      : "hover:ring-2 hover:ring-blue-400 cursor-pointer"
+                      : "hover:ring-2 hover:ring-gray-400 cursor-pointer"
                   }`}
                 >
                   {/* biome-ignore lint/performance/noImgElement: image-rendering:pixelated doesn't work reliably with next/image optimization */}
@@ -220,11 +254,11 @@ export const MatchupForm = ({ heroes }: Props) => {
 
       <button
         onClick={analyse}
-        disabled={!ready || state.status === "loading"}
+        disabled={!ready}
         type="button"
         className="rounded bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"
       >
-        {state.status === "loading" ? "Analysing…" : "Analyse matchup"}
+        Analyse matchup
       </button>
 
       {state.status === "error" && (

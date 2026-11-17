@@ -6,9 +6,23 @@ interface Props {
   label: string;
   slots: [string, string];
   activeSlot: 0 | 1 | null;
+  variant: "radiant" | "dire";
   onSlotClick: (slot: 0 | 1) => void;
   onClear: (slot: 0 | 1) => void;
 }
+
+const variantStyles = {
+  radiant: {
+    label: "text-emerald-500",
+    activeSlot: "border-emerald-500 bg-emerald-500/10",
+    activeText: "text-emerald-300",
+  },
+  dire: {
+    label: "text-red-500",
+    activeSlot: "border-red-500 bg-red-500/10",
+    activeText: "text-red-300",
+  },
+};
 
 export const HeroPicker = ({
   heroes,
@@ -16,15 +30,20 @@ export const HeroPicker = ({
   label,
   slots,
   activeSlot,
+  variant,
   onSlotClick,
   onClear,
 }: Props) => {
   const heroById = (id: number | null) =>
     id !== null ? (heroes.find((h) => h.id === id) ?? null) : null;
 
+  const styles = variantStyles[variant];
+
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-400">
+      <h2
+        className={`text-sm font-semibold uppercase tracking-wider ${styles.label}`}
+      >
         {label}
       </h2>
 
@@ -36,7 +55,7 @@ export const HeroPicker = ({
               key={s}
               className={`flex flex-1 items-center rounded border transition-colors ${
                 activeSlot === s
-                  ? "border-blue-500 bg-blue-500/10"
+                  ? styles.activeSlot
                   : "border-gray-600 bg-gray-800"
               }`}
             >
@@ -59,7 +78,7 @@ export const HeroPicker = ({
                     />
                     <span
                       className={
-                        activeSlot === s ? "text-blue-300" : "text-gray-300"
+                        activeSlot === s ? styles.activeText : "text-gray-300"
                       }
                     >
                       {hero.localized_name}

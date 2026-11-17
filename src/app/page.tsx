@@ -7,10 +7,7 @@ const Home = () => {
   );
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 py-12">
-      <h1 className="mb-8 text-2xl font-semibold text-white">
-        Matchup Lowdown
-      </h1>
+    <main className="mx-auto w-full max-w-3xl px-4 py-8">
       <MatchupForm heroes={heroes} />
     </main>
   );
