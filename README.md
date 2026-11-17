@@ -4,6 +4,10 @@ Dota 2 safe-lane (2v2) matchup analyser. Pick four heroes - two per team - and g
 
 > Work in progress. See [next steps](#next-steps).
 
+<div style="display: flex; justify-content: center;">
+    <img src="docs/screenshot.png" style="" width="700" alt="Safer Lane screenshot" />
+</div>
+
 ---
 
 ## What it does
@@ -90,3 +94,4 @@ Or set `MOCK_CLAUDE=true` to run without any keys.
 - [ ] Response caching - identical hero combinations always produce the same analysis
 - [ ] Deploy to Vercel
 - [ ] Streaming for lower perceived latency on the analysis response
+
