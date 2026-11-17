@@ -66,7 +66,7 @@ Set `MOCK_CLAUDE=true` in your `.env` to skip the real API call and return a fix
 
 ```bash
 git clone https://github.com/A-Marriott/SaferLane.git
-cd safer-lane
+cd SaferLane
 cp .env.example .env     # fill in your API keys
 pnpm install
 pnpm run dev              # starts at http://localhost:3000
