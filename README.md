@@ -1,6 +1,6 @@
 # Safer Lane
 
-Dota 2 safe-lane (2v2) matchup analyser. Pick four heroes - two per team - and get a predicted lane winner, confidence level, recommended combos, and strategic advice powered by the Claude API and real-time Stratz win-rate data.
+Dota 2 lane matchup analyser. Pick four heroes - two per team - and get a predicted lane winner, confidence level, recommended combos, and strategic advice powered by the Claude API and real-time Stratz win-rate data.
 
 > Work in progress. See [next steps](#next-steps).
 
@@ -14,7 +14,6 @@ Dota 2 safe-lane (2v2) matchup analyser. Pick four heroes - two per team - and g
 2. Submit - the app queries Stratz for live Divine/Immortal lane matchup win rates and ally synergy scores, then passes that data to Claude alongside each hero's abilities
 3. Claude returns a structured analysis: predicted winner, confidence, combo names and descriptions, strategic advice for each team, and key timing notes
 4. The result is validated against a Zod schema server-side before it reaches the client
-
 
 ## Stack
 
