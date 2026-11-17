@@ -8,8 +8,6 @@ Dota 2 safe-lane (2v2) matchup analyser. Pick four heroes - two per team - and g
     <img src="docs/screenshot.png" style="" width="700" alt="Safer Lane screenshot" />
 </div>
 
----
-
 ## What it does
 
 1. Pick two heroes for each team using the hero picker (search by name, see portrait icons)
@@ -17,7 +15,6 @@ Dota 2 safe-lane (2v2) matchup analyser. Pick four heroes - two per team - and g
 3. Claude returns a structured analysis: predicted winner, confidence, combo names and descriptions, strategic advice for each team, and key timing notes
 4. The result is validated against a Zod schema server-side before it reaches the client
 
----
 
 ## Stack
 
@@ -27,8 +24,6 @@ Dota 2 safe-lane (2v2) matchup analyser. Pick four heroes - two per team - and g
 - **Stratz GraphQL API** - real-time lane matchup win rates and ally synergy (Divine/Immortal bracket)
 - **Zod** - schema validation of Claude's response
 - **Vitest** - unit tests
-
----
 
 ## How the AI part works
 
@@ -68,8 +63,6 @@ return NextResponse.json(result.data);
 
 Set `MOCK_CLAUDE=true` in your `.env` to skip the real API call and return a fixture response. Useful for UI work without spending credits.
 
----
-
 ## Running locally
 
 ```bash
@@ -85,8 +78,6 @@ You need:
 - **Stratz API token** - [stratz.com/api](https://stratz.com/api)
 
 Or set `MOCK_CLAUDE=true` to run without any keys.
-
----
 
 ## Next steps
 
