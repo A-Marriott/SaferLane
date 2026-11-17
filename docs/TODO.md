@@ -1,3 +1,3 @@
-- Separate repo with advice per hero, general strategies. this new repo is private, current is private.
-- add security as a /checks once we get close to deploying
+- Separate repo with advice per hero, general strategies.
+- add security into /checks once close to deploying
 - add confidence field to json based on how many matches the data is based on
