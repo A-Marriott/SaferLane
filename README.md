@@ -68,8 +68,8 @@ Set `MOCK_CLAUDE=true` in your `.env` to skip the real API call and return a fix
 git clone https://github.com/amarriott/safer-lane
 cd safer-lane
 cp .env.example .env     # fill in your API keys
-npm install
-npm run dev              # starts at http://localhost:3000
+pnpm install
+pnpm run dev              # starts at http://localhost:3000
 ```
 
 You need:
